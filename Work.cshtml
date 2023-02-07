@@ -1,0 +1,45 @@
+﻿@model EmployeeWork.Models.Employee
+
+@{
+    ViewData["Title"] = "Employees Page";
+}
+
+<h1>Work</h1>
+
+<h4>Update Work</h4>
+<hr/>
+
+<div class="row">
+    <div class="col-md-4">
+        @*<form method="post" action="@url.Action("Work", "EmployeeDashboard")">*@
+            @using (Html.BeginForm("Work", "EmployeeDashboard", FormMethod.Post))
+            {
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                Do you want to update the work days for this Employee @Model.Name? if yes,click Save button.
+            </div>
+            @Html.Hidden("EmployeeId")
+            @Html.Hidden("Type")
+
+            <div class="form-group">
+                @Html.Label("Work Days")
+                @Html.TextBox("WorkDays")
+                @if(ViewBag.error!=null){
+                    <p>@ViewBag.error</p>
+                }
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to dashboard", "index","EmployeeDashboard")
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
